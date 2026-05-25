@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Wishlist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+<div class="gtranslate_wrapper"></div>
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+
+
+
+
+<h2 style="text-align:center;">Your Wishlist</h2>
+
+<div id="wishlistContainer"></div>
+
+<script>
+function loadWishlistPage(){
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  let box = document.getElementById("wishlistContainer");
+
+  if(wishlist.length === 0){
+    box.innerHTML = "<p style='text-align:center;'>No wishlist items</p>";
+    return;
+  }
+
+  box.innerHTML = "";
+
+  wishlist.forEach((item,index)=>{
+    box.innerHTML += `
+      <div class="order-card">
+        <h3>${item.name}</h3>
+        <p>₹${item.price || 0}</p>
+
+        <!-- 🔥 UPDATED BUTTON -->
+        <button onclick="viewProduct(${index})">View Product</button>
+
+        <button onclick="removeItem(${index})">Remove</button>
+      </div>
+    `;
+  });
+}
+
+// ✅ FIXED: PASS FULL PRODUCT
+function viewProduct(index){
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  localStorage.setItem(
+    "selectedProduct",
+    JSON.stringify(wishlist[index])
+  );
+
+  window.location.href = "products.html";
+}
+
+// REMOVE
+function removeItem(index){
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  wishlist.splice(index,1);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+  loadWishlistPage();
+}
+
+loadWishlistPage();
+</script>
+
+</body>
+</html>

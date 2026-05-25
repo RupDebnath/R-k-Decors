@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h2>Checkout Your Booking</h2>
+  </header>
+<div class="gtranslate_wrapper"></div>
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+
+
+<div class="cform">
+
+<h2>Checkout</h2>
+
+<input id="name" placeholder="Your Name"><br><br>
+<input id="phone" placeholder="Phone"><br><br>
+<textarea id="address" placeholder="Address"></textarea><br><br>
+
+<button onclick="placeOrder()">Place Order</button>
+</div>
+
+<script>
+function placeOrder(){
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+
+  if(!name || !phone || !address){
+    alert("Fill all details");
+    return;
+  }
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  let orderData = {
+    id: Date.now(),
+    customer: name,
+    phone,
+    address,
+    items: cart,
+
+    // existing fields
+    status: "Pending",
+    time: Date.now()
+  };
+
+  orders.push(orderData);
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  localStorage.removeItem("cart");
+
+  alert("Order placed successfully!");
+
+  location.href = "profile.html";
+}
+</script>
+
+</body>
+</html>

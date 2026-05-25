@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Professional Login</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ae581b,#6f6f70);
+  overflow:hidden;
+  padding:20px;
+  position:relative;
+}
+
+/* Background Glow */
+body::before{
+  content:"";
+  position:absolute;
+  width:350px;
+  height:350px;
+  background:#2563eb;
+  border-radius:50%;
+  top:-120px;
+  left:-120px;
+  filter:blur(120px);
+  opacity:0.35;
+}
+
+body::after{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:#7c3aed;
+  border-radius:50%;
+  bottom:-100px;
+  right:-100px;
+  filter:blur(120px);
+  opacity:0.35;
+}
+
+/* Translator */
+.gtranslate_wrapper{
+  position:absolute;
+  top:15px;
+  right:15px;
+  z-index:1000;
+}
+
+/* Login Card */
+.login-container{
+  width:100%;
+  max-width:380px;
+  background:linear-gradient(135deg,#ae581b,#6f6f70);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  backdrop-filter:blur(16px);
+  padding:26px 24px;
+  position:relative;
+  z-index:10;
+  box-shadow: 2px 5px 10px rgb(232, 159, 115);
+}
+
+/* Logo */
+.logo{
+  width:65px;
+  height:65px;
+  margin:auto;
+  margin-bottom:14px;
+  border-radius:18px;
+  background-image:url("logo-c.jpeg");
+  background-size:cover;
+  background-position:center;
+  box-shadow:2px 5px 10px rgb(252, 251, 250);
+}
+/* Heading */
+h2{
+  text-align:center;
+  color:white;
+  font-size:26px;
+  font-weight:600;
+  margin-bottom:4px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#94a3b8;
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+/* Form */
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  outline:none;
+  border-radius:10px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  color:white;
+  font-size:13px;
+  transition:0.3s;
+}
+
+.form-group input::placeholder{
+  color:#cbd5e1;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+  border-color:#60a5fa;
+  box-shadow:
+  0 0 12px rgba(96,165,250,0.25);
+}
+
+select option{
+  color:black;
+}
+
+/* Forgot */
+.forgot{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:-4px;
+  margin-bottom:16px;
+}
+
+.forgot a{
+  color:#ee620b;
+  text-decoration:none;
+  font-size:12px;
+}
+
+.forgot a:hover{
+  color:white;
+}
+
+/* Button */
+#loginBtn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:
+  linear-gradient(135deg,#f7670e,#4508ad);
+  color:white;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#loginBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+  0 8px 20px rgba(37,99,235,0.4);
+}
+
+/* Divider */
+.divider{
+  display:flex;
+  align-items:center;
+  margin:18px 0;
+  color:#94a3b8;
+  font-size:11px;
+}
+
+.divider::before,
+.divider::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:rgba(255,255,255,0.1);
+}
+
+.divider span{
+  margin:0 10px;
+}
+
+/* Create Account */
+.signup{
+  text-align:center;
+  color:#cbd5e1;
+  font-size:12px;
+}
+
+.signup a{
+  color:#f9720a;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.signup a:hover{
+  color:white;
+}
+
+/* Footer */
+.footer{
+  text-align:center;
+  margin-top:14px;
+  color:#0cb1a9;
+  font-size:11px;
+}
+
+/* Mobile */
+@media(max-width:480px){
+  .login-container{
+    padding:24px 20px;
+  }
+  h2{
+    font-size:24px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Translator -->
+<div class="gtranslate_wrapper"></div>
+
+<!-- Login Card -->
+<div class="login-container">
+
+  <!-- Logo -->
+  <div class="logo"></div>
+
+  <!-- Heading -->
+  <h2>Welcome Back</h2>
+  <p class="subtitle">
+    Sign in to access your account
+  </p>
+
+  <!-- Username -->
+  <div class="form-group">
+    <input
+    type="text"
+    id="username"
+    placeholder="Enter Username">
+  </div>
+
+  <!-- Password -->
+  <div class="form-group">
+    <input
+    type="password"
+    id="password"
+    placeholder="Enter Password"
+    autocomplete="current-password">
+  </div>
+
+  <!-- Role -->
+  <div class="form-group">
+    <select id="role">
+      <option value="user">
+        User
+      </option>
+      <option value="seller">
+        Seller
+      </option>
+    </select>
+  </div>
+
+  <!-- Forgot Password -->
+  <div class="forgot">
+    <a href="#">
+      Forgot Password?
+    </a>
+  </div>
+
+  <!-- Login Button -->
+  <button
+  type="button"
+  id="loginBtn"
+  onclick="login()">
+  Login
+  </button>
+
+  <!-- Divider -->
+  <div class="divider">
+    <span>OR</span>
+  </div>
+
+  <!-- Create Account -->
+  <div class="signup">
+    Don't have an account?
+    <a href="sign.html">
+      Create Account
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Secure Authentication System
+  </div>
+</div>
+<!-- Translator -->
+
+<script src="translator.js"></script>
+
+<script
+src="https://cdn.gtranslate.net/widgets/latest/float.js"
+defer>
+</script>
+
+<!-- Firebase -->
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<!-- Login JS -->
+
+<script src="login.js"></script>
+
+</body>
+</html>

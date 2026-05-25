@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Demo Works</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:Arial, sans-serif;
+      background:#f1f5f9;
+      color:#0f172a;
+    }
+
+    /* HERO */
+    .hero{
+      background:linear-gradient(135deg,#e27909,#eaecf0);
+      color:white;
+      padding:80px 20px;
+      text-align:center;
+    }
+
+    .hero h1{
+      font-size:48px;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      max-width:700px;
+      margin:auto;
+      line-height:1.8;
+      color:#dbeafe;
+      font-size:17px;
+    }
+
+    /* CONTAINER */
+    .container{
+      max-width:1300px;
+      margin:auto;
+      padding:50px 20px;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .section-title h2{
+      font-size:38px;
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#64748b;
+    }
+
+    /* FILTER */
+    .filter-box{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin-bottom:40px;
+    }
+
+    .filter-btn{
+      padding:12px 20px;
+      border:none;
+      border-radius:30px;
+      background:white;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    .filter-btn:hover{
+      background:#e6880d;
+      color:white;
+    }
+
+    /* GALLERY */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .work-card{
+      background:white;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 6px 25px rgba(0,0,0,0.08);
+      transition:0.4s;
+      position:relative;
+    }
+
+    .work-card:hover{
+      transform:translateY(-8px);
+    }
+
+    .work-img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+    }
+
+    .work-content{
+      padding:20px;
+    }
+
+    .work-content h3{
+      margin-bottom:10px;
+      font-size:24px;
+    }
+
+    .work-content p{
+      color:#91702e;
+      line-height:1.7;
+      margin-bottom:15px;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#eeb885;
+      color:#b06605;
+      padding:6px 12px;
+      border-radius:20px;
+      font-size:13px;
+      font-weight:bold;
+      margin-bottom:15px;
+    }
+
+    .btn{
+      padding:12px 18px;
+      border:none;
+      border-radius:12px;
+      background:#ed7906;
+      color:white;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    .btn:hover{
+      background:#e6b36c;
+    }
+
+    /* STATS */
+    .stats{
+      margin-top:70px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+    }
+
+    .stat-card{
+      background:white;
+      text-align:center;
+      padding:35px;
+      border-radius:20px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .stat-card h2{
+      font-size:42px;
+      color:#ec7f0b;
+      margin-bottom:10px;
+    }
+
+    /* TESTIMONIAL */
+    .testimonial-section{
+      margin-top:80px;
+    }
+
+    .testimonial-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+      margin-top:30px;
+    }
+
+    .testimonial-card{
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .testimonial-card p{
+      line-height:1.8;
+      color:#475569;
+      margin-bottom:15px;
+    }
+
+    .testimonial-card h4{
+      color:#eb7508;
+    }
+
+    /* FOOTER */
+    footer{
+      background:linear-gradient(135deg,#e27909,#eaecf0);
+      color:white;
+      text-align:center;
+      padding:25px;
+      margin-top:80px;
+    }
+
+    /* MOBILE */
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:34px;
+      }
+
+      .section-title h2{
+        font-size:30px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-box">
+  <div class="content">
+  </div>
+</div>
+  <h1>R&amp;K Decors</h1>
+
+<div class="gtranslate_wrapper"></div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="orders.html">Orders</a>
+    <a href="profile.html"> My Profile</a>
+    <a href="about.html">R&amp;K</a>
+    <a href="seller.html" id="sellerLink">Seller</a>
+    <a href="login.html" onclick="logout()">Logout</a>
+  </nav>
+</header>
+
+<div class="gtranslate_wrapper"></div>
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Our Decoration Demo Works</h1>
+  <p>
+    Explore our premium decoration projects including wedding setups,
+    puja decorations, stage designs, lighting arrangements and luxury event styling.
+  </p>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <div class="section-title">
+    <h2>Featured Projects</h2>
+    <p>Creative decoration designs for every special occasion</p>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-box">
+    <button class="filter-btn">All</button>
+    <button class="filter-btn">Wedding</button>
+    <button class="filter-btn">Puja</button>
+    <button class="filter-btn">Reception</button>
+    <button class="filter-btn">Birthday</button>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery">
+
+    <!-- CARD -->
+    <div class="work-card">
+      <img class="work-img" src="decor1.jpeg">
+
+      <div class="work-content">
+        <span class="tag">Wedding Decoration</span>
+
+        <h3>Royal Wedding Stage</h3>
+
+        <p>
+          Luxury wedding stage setup with floral backdrop,
+          golden lighting and premium seating arrangement.
+        </p>
+
+        <button class="btn" onclick="showDemo('Royal Wedding Stage')">
+          View Details
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="work-card">
+      <img class="work-img" src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="work-content">
+        <span class="tag">Puja Decoration</span>
+
+        <h3>Durga Puja Setup</h3>
+
+        <p>
+          Traditional Durga Puja decoration with flowers,
+          artistic lighting and cultural ambience.
+        </p>
+
+        <button class="btn" onclick="showDemo('Durga Puja Setup')">
+          View Details
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="work-card">
+      <img class="work-img" src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="work-content">
+        <span class="tag">Reception Event</span>
+
+        <h3>Reception Hall Design</h3>
+
+        <p>
+          Elegant reception decoration with luxury table styling,
+          stage lighting and modern floral design.
+        </p>
+
+        <button class="btn" onclick="showDemo('Reception Hall Design')">
+          View Details
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="work-card">
+      <img class="work-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="work-content">
+        <span class="tag">Birthday Decoration</span>
+
+        <h3>Birthday Party Setup</h3>
+
+        <p>
+          Stylish birthday decoration featuring balloons,
+          LED lighting and themed party arrangement.
+        </p>
+
+        <button class="btn" onclick="showDemo('Birthday Party Setup')">
+          View Details
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="work-card">
+      <img class="work-img" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="work-content">
+        <span class="tag">Outdoor Decoration</span>
+
+        <h3>Garden Wedding Decor</h3>
+
+        <p>
+          Open garden wedding arrangement with fairy lights,
+          flower arches and luxury seating area.
+        </p>
+
+        <button class="btn" onclick="showDemo('Garden Wedding Decor')">
+          View Details
+        </button>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="work-card">
+      <img class="work-img" src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="work-content">
+        <span class="tag">Premium Lighting</span>
+
+        <h3>Luxury Light Setup</h3>
+
+        <p>
+          Premium decorative lighting setup with warm ambience
+          and modern event styling.
+        </p>
+
+        <button class="btn" onclick="showDemo('Luxury Light Setup')">
+          View Details
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+
+    <div class="stat-card">
+      <h2>500+</h2>
+      <p>Decoration Projects</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>4.9★</h2>
+      <p>Client Rating</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>350+</h2>
+      <p>Wedding Setups</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>100%</h2>
+      <p>Customer Satisfaction</p>
+    </div>
+
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <div class="testimonial-section">
+
+    <div class="section-title">
+      <h2>Client Reviews</h2>
+      <p>What our clients say about our decoration work</p>
+    </div>
+
+    <div class="testimonial-grid">
+
+      <div class="testimonial-card">
+        <p>
+          “Amazing decoration service. The wedding stage design was beyond expectations.”
+        </p>
+
+        <h4>— Arpita Roy</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>
+          “Professional team and premium quality setup. Highly recommended.”
+        </p>
+
+        <h4>— Rahul Das</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>
+          “Beautiful lighting and floral arrangement for our reception event.”
+        </p>
+
+        <h4>— Sabuj Das</h4>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 DecorHub | Premium Decoration Portfolio
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+// FILTER BUTTONS
+const filterButtons = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.work-card');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+
+    let value = button.innerText.toLowerCase();
+
+    // ACTIVE BUTTON STYLE
+    filterButtons.forEach(btn => {
+      btn.style.background = 'white';
+      btn.style.color = '#0f172a';
+    });
+
+    button.style.background = '#2563eb';
+    button.style.color = 'white';
+
+    // SHOW ALL
+    if(value === 'all'){
+      cards.forEach(card => {
+        card.style.display = 'block';
+      });
+      return;
+    }
+
+    // FILTER CARDS
+    cards.forEach(card => {
+
+      let tag = card.querySelector('.tag').innerText.toLowerCase();
+
+      if(tag.includes(value)){
+        card.style.display = 'block';
+      }else{
+        card.style.display = 'none';
+      }
+
+    });
+
+  });
+});
+
+
+function showDemo(name) {
+  const details = {
+    'Royal Wedding Stage': 'Luxury wedding stage with floral setup, LED lighting and premium seating arrangement.',
+    'Durga Puja Setup': 'Traditional puja decoration with flowers, lights and cultural ambience.',
+    'Reception Hall Design': 'Elegant reception hall with premium decor and lighting arrangement.',
+    'Birthday Party Setup': 'Modern birthday party setup with balloons and customized theme design.',
+    'Garden Wedding Decor': 'Outdoor wedding setup with fairy lights and flower arches.',
+    'Luxury Light Setup': 'Premium decorative lighting for weddings and events.'
+  };
+
+  alert(
+    'Project: ' + name + '\n\n' +
+    (details[name] || 'Premium decoration project')
+  );
+}
+
+});
+</script>
+
+</body>
+</html>

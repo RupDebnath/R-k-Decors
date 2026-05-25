@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Orders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    header h2 {
+      text-align: center;
+      font-family: cursive;
+      font-size: 27px;
+    }
+
+    #ordersContainer {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+<header>
+  <h2>Your Bookings</h2>
+  <div class="gtranslate_wrapper"></div>
+</header>
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+<div id="ordersContainer"></div>
+
+<script>
+// ================= LOAD ORDERS =================
+function loadOrders(){
+  let box = document.getElementById("ordersContainer");
+
+  if(!box){
+    console.error("ordersContainer not found");
+    return;
+  }
+
+  let orders;
+  try{
+    orders = JSON.parse(localStorage.getItem("orders")) || [];
+  }catch(e){
+    console.error("LocalStorage error:", e);
+    orders = [];
+  }
+
+  console.log("Orders:", orders);
+
+  if(orders.length === 0){
+    box.innerHTML = "<p style='text-align:center;'>No orders yet</p>";
+    return;
+  }
+
+  box.innerHTML = "";
+
+  orders.slice().reverse().forEach((o,i)=>{
+
+    let realIndex = orders.length - 1 - i;
+
+    // ✅ SAFE DEFAULTS
+    let items = Array.isArray(o.items) ? o.items : [];
+    let date = o.date || new Date().toLocaleString();
+    let status = o.status || "Pending";
+    let payment = o.payment || "Cash on Delivery";
+    let address = o.address || localStorage.getItem("profileAddress") || "Not provided";
+
+    let total = items.reduce((t,it)=> 
+      t + ((it.price || 0) * (it.qty || 1)), 0
+    );
+
+    box.innerHTML += `
+      <div class="order-card">
+
+        <!-- HEADER -->
+        <div style="display:flex; justify-content:space-between;">
+          <h4>Order #${o.id || "N/A"}</h4>
+          <span class="status ${status}">${status}</span>
+        </div>
+
+        <!-- DATE -->
+        <p style="font-size:12px; color:gray;">
+          📅 ${date}
+        </p>
+
+        <!-- ADDRESS -->
+        <p>
+          📍 <strong>Address:</strong><br>
+          ${address}
+        </p>
+
+        <!-- PAYMENT -->
+        <p>
+          💳 <strong>Payment:</strong> ${payment}
+        </p>
+
+        <!-- ITEMS -->
+        <div style="margin:10px 0;">
+          <strong>🛒 Items:</strong>
+          ${
+            items.length
+            ? items.map(it => `
+              <div style="display:flex; justify-content:space-between;">
+                <span>${it.name || "Item"} × ${it.qty || 1}</span>
+                <span>₹${(it.price || 0)*(it.qty || 1)}</span>
+              </div>
+            `).join("")
+            : "<p>No items</p>"
+          }
+        </div>
+
+        <!-- TOTAL -->
+        <p style="font-weight:bold;">
+          💰 Total: ₹${total}
+        </p>
+
+        <!-- STATUS MESSAGE -->
+        <p style="font-size:12px; color:#555;">
+          ${
+            status === "Pending" ? "⏳ Preparing your order" :
+            status === "Delivered" ? "✅ Delivered successfully" :
+            status === "Cancelled" ? "❌ Order cancelled" :
+            ""
+          }
+        </p>
+
+        <!-- BUTTONS -->
+        <div style="margin-top:10px;">
+          <button onclick="viewOrder(${realIndex})">👁 View</button>
+
+          ${
+            status === "Pending"
+            ? `<button onclick="cancelOrder(${realIndex})">❌ Cancel</button>`
+            : ""
+          }
+        </div>
+
+      </div>
+    `;
+  });
+}
+
+// ================= VIEW =================
+function viewOrder(i){
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  let o = orders[i];
+  if(!o) return;
+
+  let itemsText = (o.items || []).map(x =>
+    `${x.name || "Item"} × ${x.qty || 1}`
+  ).join("\n");
+
+  let total = (o.items || []).reduce((t,i)=>
+    t + ((i.price || 0)*(i.qty || 1)),0
+  );
+
+  alert(
+    "Order #" + o.id + "\n\n" +
+    itemsText +
+    "\n\nTotal: ₹" + total
+  );
+}
+
+// ================= CANCEL =================
+function cancelOrder(i){
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  if(!orders[i]) return;
+
+  orders[i].status = "Cancelled";
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  loadOrders();
+}
+
+// ================= INIT =================
+loadOrders();
+</script>
+
+</body>
+</html>

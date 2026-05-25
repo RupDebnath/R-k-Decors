@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:#874108;
+
+  padding:15px;
+
+  overflow:hidden;
+
+  position:relative;
+}
+
+/* Background */
+
+body::before{
+  content:"";
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  background:#2563eb;
+
+  border-radius:50%;
+
+  top:-100px;
+  left:-100px;
+
+  filter:blur(100px);
+
+  opacity:0.35;
+}
+
+body::after{
+  content:"";
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  background:#7c3aed;
+
+  border-radius:50%;
+
+  bottom:-100px;
+  right:-100px;
+
+  filter:blur(100px);
+
+  opacity:0.35;
+}
+
+/* Card */
+
+.signup-box{
+
+  width:100%;
+  max-width:380px;
+
+  background:rgb(128, 62, 4);
+
+  border:1px solid rgba(203, 184, 184, 0.468);
+
+  backdrop-filter:blur(15px);
+
+  border-radius:20px;
+
+  padding:24px;
+
+  position:relative;
+  z-index:10;
+
+  box-shadow: 2px 8px 24px white;
+}
+
+/* Logo */
+
+.logo{
+background-image: url("logo-c.jpeg");
+background-size: cover;
+  width:60px;
+  height:60px;
+
+  margin:auto;
+  margin-bottom:14px;
+
+  border-radius:50%;
+
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  color:white;
+
+  font-size:22px;
+  font-weight:700;
+}
+
+/* Heading */
+
+h2{
+  text-align:center;
+  color:white;
+  font-size:26px;
+  margin-bottom:4px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#cbd4df;
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+/* Form */
+
+.form-group{
+  margin-bottom:12px;
+}
+
+.form-group input,
+.form-group select{
+
+  width:100%;
+
+  padding:12px 14px;
+
+  border:none;
+  outline:none;
+
+  border-radius:10px;
+
+  background:rgba(255,255,255,0.07);
+
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:2px 4px 12px rgb(243, 131, 27);
+
+  color:white;
+
+  font-size:13px;
+
+  transition:0.3s;
+}
+.form-group input::placeholder{
+  color:#cbd5e1;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+  border-color:#f4813a;
+
+  box-shadow:0 0 12px rgba(96,165,250,0.25);
+}
+
+select option{
+  color:black;
+}
+
+/* Row */
+
+.row{
+  display:flex;
+  gap:10px;
+}
+
+/* Button */
+
+#signupBtn{
+
+  width:100%;
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:
+  linear-gradient(135deg,#ee771c,#7c3aed);
+
+  color:white;
+
+  font-size:14px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+
+  margin-top:3px;
+}
+
+#signupBtn:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 8px 20px rgba(37,99,235,0.4);
+}
+
+/* Terms */
+
+.terms{
+  margin-top:12px;
+  font-size:11px;
+  color:#cbd5e1;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* Login Link */
+
+.login-link{
+  margin-top:14px;
+  text-align:center;
+  font-size:12px;
+  color:#cbd5e1;
+}
+
+.login-link a{
+  color:#60a5fa;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.login-link a:hover{
+  color:white;
+}
+
+/* Footer */
+.footer{
+  margin-top:14px;
+  text-align:center;
+  color:#94a3b8;
+  font-size:11px;
+}
+
+/* Mobile */
+@media(max-width:450px){
+  .row{
+    flex-direction:column;
+    gap:12px;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="gtranslate_wrapper"></div>
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+<!-- Sign Up Card -->
+<div class="signup-box">
+
+  <!-- Logo -->
+  <div class="logo">
+  </div>
+
+  <!-- Heading -->
+  <h2>Create Account</h2>
+  <p class="subtitle">
+    Join and access your dashboard
+  </p>
+
+  <!-- Name -->
+  <div class="form-group">
+    <input
+    type="text"
+    id="fullname"
+    placeholder="Full Name">
+  </div>
+
+  <!-- Row -->
+  <div class="row">
+
+    <!-- Username -->
+    <div class="form-group">
+      <input
+      type="text"
+      id="username"
+      placeholder="Username">
+    </div>
+
+    <!-- Role -->
+    <div class="form-group">
+      <select id="role">
+        <option value="user">
+          User
+        </option>
+        <option value="seller">
+          Seller
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <input
+    type="email"
+    id="email"
+    placeholder="Email Address">
+  </div>
+
+  <!-- Password -->
+  <div class="row">
+    <div class="form-group">
+      <input
+      type="password"
+      id="password"
+      placeholder="Password">
+    </div>
+    <div class="form-group">
+      <input
+      type="password"
+      id="confirmPassword"
+      placeholder="Confirm Password">
+    </div>
+  </div>
+
+  <!-- Create Button -->
+  <button
+  type="button"
+  id="signupBtn"
+  onclick="signup()">
+  Create Account
+  </button>
+
+  <!-- Terms -->
+  <div class="terms">
+    By creating an account, you agree to our
+    Terms & Privacy Policy.
+  </div>
+
+  <!-- Login -->
+  <div class="login-link">
+    Already have an account?
+    <a href="login.html">
+      Login
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Secure Registration System
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script>
+<script src="signup.js"></script>
+
+</body>
+</html>

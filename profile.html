@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+  .extra-profile{
+    background:#f1f5f9;
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+  }
+
+  .extra-profile input,
+  .extra-profile textarea,
+  .extra-profile select{
+    width:100%;
+    margin:5px 0;
+    padding:8px;
+  }
+
+  .extra-profile ul{
+    list-style:none;
+    padding:0;
+  }
+
+  .extra-profile li{
+    padding:10px 5px;
+    border-bottom:1px solid #ddd;
+    font-size:14px;
+  }
+
+  /* MODAL */
+  .modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    z-index:999;
+  }
+
+  .modal-content{
+    background:#fff;
+    margin:5% auto;
+    padding:20px;
+    width:90%;
+    max-width:400px;
+    border-radius:12px;
+    max-height:80vh;
+    overflow-y:auto;
+  }
+
+  .close{
+    float:right;
+    font-size:22px;
+    cursor:pointer;
+  }
+
+  .notification-time{
+    font-size:12px;
+    color:gray;
+  }
+
+  </style>
+</head>
+
+<body>
+
+<div class="gtranslate_wrapper"></div>
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+<div class="top-bar">
+
+  <div class="logo-box">
+    <div class="content"></div>
+  </div>
+
+  <h2>Welcome to Your Profile Dashboard</h2>
+
+  <button class="btn1" id="themeBtn" onclick="toggleDarkMode()">
+    🌞
+  </button>
+
+</div>
+
+<div id="cover">
+
+  <p class="welcome-text">
+    Manage your account, orders and wishlist easily.
+  </p>
+
+</div>
+
+<div id="profile-card">
+
+  <div class="profile-img-box">
+
+    <img id="profileImg"
+    src="https://via.placeholder.com/120">
+
+    <input type="file"
+    id="imgInput"
+    accept="image/*">
+
+  </div>
+
+  <input id="username">
+
+  <p id="userRole"></p>
+
+  <button class="btn" onclick="saveProfile()">
+    Save
+  </button>
+
+  <button class="btn logout" onclick="logout()">
+    Logout
+  </button>
+
+</div>
+
+<!-- PROFILE DETAILS -->
+<div class="extra-profile">
+
+  <h3>Profile Details</h3>
+
+  <input id="nameInput"
+  type="text"
+  placeholder="Enter Your Full Name">
+
+  <input id="phoneInput"
+  type="tel"
+  placeholder="Enter your Mobile Number">
+
+  <input id="emailInput"
+  type="email"
+  placeholder="Enter Your Email Address">
+
+  <textarea id="addressInput"
+  placeholder="Enter Your Personal Address"></textarea>
+
+  <input id="pincodeInput"
+  type="number"
+  placeholder="Enter Your Postal-code">
+
+  <input id="dobInput"
+  type="date">
+
+  <select id="genderInput">
+
+    <option value="">
+      Select Your Gender
+    </option>
+
+    <option value="Male">
+      Male
+    </option>
+
+    <option value="Female">
+      Female
+    </option>
+
+    <option value="Others">
+      Others
+    </option>
+
+  </select>
+
+  <p id="profileProgress"></p>
+
+  <button class="btn" onclick="saveExtraProfile()">
+
+    Save Details
+
+  </button>
+
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="extra-profile">
+
+  <h3>Notifications</h3>
+
+  <ul id="notificationList"></ul>
+
+</div>
+
+<!-- WISHLIST -->
+<div class="extra-profile">
+
+  <h3 class="wish">
+    Wishlist
+    <button class="btn" onclick="goToWishlist()" style="float:right;"> View</button>
+  </h3>
+
+  <div id="wishlistPreview"></div>
+
+</div>
+
+<!-- SEARCH -->
+<div style="text-align:center; margin:10px;">
+
+  <input id="searchOrder"
+  placeholder="Search order ID"
+  onkeyup="filterOrders()">
+
+  <select id="statusFilter"
+  onchange="filterOrders()">
+
+    <option value="All">All</option>
+    <option value="Pending">Pending</option>
+    <option value="Delivered">Delivered</option>
+    <option value="Cancelled">Cancelled</option>
+
+  </select>
+
+</div>
+
+<!-- STATS -->
+<div class="stats">
+
+  <div>
+    <h3 id="orderCount">0</h3>
+    <p>Orders</p>
+  </div>
+
+  <div>
+    <h3 id="totalSpent">₹0</h3>
+    <p>Total Spent</p>
+  </div>
+
+</div>
+
+<!-- ACTION -->
+<div style="text-align:center; margin:10px;">
+
+  <button type="button" class="btn" onclick="cancelAllOrders()"> Cancel All Orders </button>
+
+  <button  type="button" class="btn" onclick="downloadOrders()">  Download Orders</button>
+
+</div>
+
+<div id="clearSection"></div>
+
+<!-- ORDERS -->
+<div class="orders-section">
+
+  <h3>Your Orders</h3>
+
+  <div id="ordersList"></div>
+
+</div>
+
+<!-- WISHLIST MODAL -->
+<div id="wishlistModal" class="modal">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="closeWishlistModal()">
+
+      &times;
+
+    </span>
+
+    <h3>Your Wishlist</h3>
+
+    <div id="wishlistFull"></div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+// ================= SAFE LOAD =================
+window.onload = function(){
+
+  loadProfile();
+
+};
+
+// ================= PROFILE =================
+function loadProfile(){
+
+  let user =
+    localStorage.getItem("user");
+
+  let role =
+    localStorage.getItem("role");
+
+  if(!user){
+
+    location.href="login.html";
+
+    return;
+  }
+
+  document.getElementById("username").value =
+    localStorage.getItem("profileName") || user;
+
+  document.getElementById("userRole").innerText =
+    "Role: " + (role || "Customer");
+
+  let img =
+    localStorage.getItem("profileImg");
+
+  if(img){
+
+    document.getElementById("profileImg").src = img;
+
+  }
+
+  loadExtraProfile();
+  loadLocalOrders();
+  loadWishlist();
+  loadNotifications();
+}
+
+// ================= NOTIFICATIONS =================
+function addNotification(message){
+
+  let notifications =
+    JSON.parse(localStorage.getItem("notifications")) || [];
+
+  notifications.push({
+
+    text: message,
+
+    time: new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "notifications",
+    JSON.stringify(notifications)
+  );
+
+  loadNotifications();
+}
+
+function loadNotifications(){
+
+  let notifications =
+    JSON.parse(localStorage.getItem("notifications")) || [];
+
+  let box =
+    document.getElementById("notificationList");
+
+  if(!box) return;
+
+  if(notifications.length === 0){
+
+    box.innerHTML =
+      "<li>No Notifications Yet</li>";
+
+    return;
+  }
+
+  box.innerHTML = "";
+
+  notifications.slice().reverse().forEach(n => {
+
+    box.innerHTML += `
+
+      <li>
+
+        <div>${n.text}</div>
+
+        <div class="notification-time">
+          ${n.time}
+        </div>
+
+      </li>
+
+    `;
+
+  });
+}
+
+// ================= SAVE PROFILE =================
+function saveProfile(){
+
+  let name =
+    document.getElementById("username").value;
+
+  localStorage.setItem("profileName", name);
+
+  addNotification(
+    "Profile updated successfully!"
+  );
+
+  alert("Profile updated!");
+}
+
+// ================= IMAGE UPLOAD =================
+document.addEventListener("DOMContentLoaded", function(){
+
+  let imgInput =
+    document.getElementById("imgInput");
+
+  if(imgInput){
+
+    imgInput.addEventListener("change", function(){
+
+      let file = this.files[0];
+
+      if(!file) return;
+
+      let reader = new FileReader();
+
+      reader.onload = function(e){
+
+        localStorage.setItem(
+          "profileImg",
+          e.target.result
+        );
+
+        document.getElementById("profileImg").src =
+          e.target.result;
+
+        addNotification(
+          "Profile picture updated!"
+        );
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+  }
+
+});
+
+// ================= EXTRA PROFILE =================
+function saveExtraProfile(){
+
+  localStorage.setItem(
+    "profileName",
+    document.getElementById("nameInput").value
+  );
+
+  localStorage.setItem(
+    "profilePhone",
+    document.getElementById("phoneInput").value
+  );
+
+  localStorage.setItem(
+    "profileEmail",
+    document.getElementById("emailInput").value
+  );
+
+  localStorage.setItem(
+    "profileAddress",
+    document.getElementById("addressInput").value
+  );
+
+  localStorage.setItem(
+    "profilePincode",
+    document.getElementById("pincodeInput").value
+  );
+
+  localStorage.setItem(
+    "profileDob",
+    document.getElementById("dobInput").value
+  );
+
+  localStorage.setItem(
+    "profileGender",
+    document.getElementById("genderInput").value
+  );
+
+  updateProfileProgress();
+
+  addNotification(
+    "Profile details updated!"
+  );
+
+  alert("Profile Saved Successfully!");
+}
+
+// ================= LOAD EXTRA PROFILE =================
+function loadExtraProfile(){
+
+  let name =
+    document.getElementById("nameInput");
+
+  let phone =
+    document.getElementById("phoneInput");
+
+  let email =
+    document.getElementById("emailInput");
+
+  let address =
+    document.getElementById("addressInput");
+
+  let pincode =
+    document.getElementById("pincodeInput");
+
+  let dob =
+    document.getElementById("dobInput");
+
+  let gender =
+    document.getElementById("genderInput");
+
+  if(name)
+    name.value =
+      localStorage.getItem("profileName") || "";
+
+  if(phone)
+    phone.value =
+      localStorage.getItem("profilePhone") || "";
+
+  if(email)
+    email.value =
+      localStorage.getItem("profileEmail") || "";
+
+  if(address)
+    address.value =
+      localStorage.getItem("profileAddress") || "";
+
+  if(pincode)
+    pincode.value =
+      localStorage.getItem("profilePincode") || "";
+
+  if(dob)
+    dob.value =
+      localStorage.getItem("profileDob") || "";
+
+  if(gender)
+    gender.value =
+      localStorage.getItem("profileGender") || "";
+
+  updateProfileProgress();
+}
+
+// ================= PROFILE COMPLETION =================
+function updateProfileProgress(){
+
+  let score = 0;
+
+  if(localStorage.getItem("profileName"))
+    score += 15;
+
+  if(localStorage.getItem("profilePhone"))
+    score += 15;
+
+  if(localStorage.getItem("profileEmail"))
+    score += 15;
+
+  if(localStorage.getItem("profileAddress"))
+    score += 20;
+
+  if(localStorage.getItem("profilePincode"))
+    score += 10;
+
+  if(localStorage.getItem("profileDob"))
+    score += 10;
+
+  if(localStorage.getItem("profileGender"))
+    score += 15;
+
+  let box =
+    document.getElementById("profileProgress");
+
+  if(box){
+
+    box.innerText =
+      "Profile Completion: " + score + "%";
+
+  }
+}
+
+// ================= ORDERS =================
+function loadLocalOrders(){
+
+  let orders =
+    JSON.parse(localStorage.getItem("orders")) || [];
+
+  let box =
+    document.getElementById("ordersList");
+
+  if(!box) return;
+
+  box.innerHTML = "";
+
+  orders.slice().reverse().forEach((o,i)=>{
+
+    let realIndex =
+      orders.length - 1 - i;
+
+    box.innerHTML += `
+
+      <div class="order-card">
+
+        <h4>#${o.id}</h4>
+
+        <p>${o.status}</p>
+
+        <button onclick="viewOrder(${realIndex})">
+          View
+        </button>
+
+        ${
+          o.status==="Pending"
+          ? `
+            <button onclick="cancelOrder(${realIndex})">
+              Cancel
+            </button>
+          `
+          : ""
+        }
+
+      </div>
+
+    `;
+
+  });
+
+  let count =
+    document.getElementById("orderCount");
+
+  if(count)
+    count.innerText = orders.length;
+}
+
+// ================= VIEW ORDER =================
+function viewOrder(i){
+
+  let orders =
+    JSON.parse(localStorage.getItem("orders")) || [];
+
+  let o = orders[i];
+
+  if(!o) return;
+
+  alert(
+    o.items.map(x=>x.name).join("\n")
+  );
+}
+
+// ================= CANCEL ORDER =================
+function cancelOrder(i){
+
+  let orders =
+    JSON.parse(localStorage.getItem("orders")) || [];
+
+  if(!orders[i]) return;
+
+  orders[i].status = "Cancelled";
+
+  localStorage.setItem(
+    "orders",
+    JSON.stringify(orders)
+  );
+
+  addNotification(
+    "An order has been cancelled!"
+  );
+
+  loadLocalOrders();
+}
+
+// ================= CANCEL ALL =================
+function cancelAllOrders(){
+
+  let orders =
+    JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders = orders.map(o => ({
+    ...o,
+    status:"Cancelled"
+  }));
+
+  localStorage.setItem(
+    "orders",
+    JSON.stringify(orders)
+  );
+
+  addNotification(
+    "All orders cancelled!"
+  );
+
+  loadLocalOrders();
+}
+
+// ================= WISHLIST =================
+function loadWishlist(){
+
+  let list =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  let box =
+    document.getElementById("wishlistPreview");
+
+  if(!box) return;
+
+  box.innerHTML = list.length
+    ? list.slice(0,25).map(x=>`
+      <li>${x.name}</li>
+    `).join("")
+    : "No items";
+}
+
+function goToWishlist(){
+
+  window.location.href =
+    "wishlist.html";
+}
+
+// ================= WISHLIST MODAL =================
+function openWishlistModal(){
+
+  let list =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  let box =
+    document.getElementById("wishlistFull");
+
+  if(!box) return;
+
+  box.innerHTML = list.length
+    ? list.map((x,i)=>`
+
+      <div class="order-card">
+
+        <h4>${x.name}</h4>
+
+        <button onclick="removeWishlistItem(${i})">
+          Remove
+        </button>
+
+      </div>
+
+    `).join("")
+    : "Empty";
+
+  document.getElementById("wishlistModal")
+    .style.display = "block";
+}
+
+function closeWishlistModal(){
+
+  document.getElementById("wishlistModal")
+    .style.display = "none";
+}
+
+function removeWishlistItem(i){
+
+  let list =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  list.splice(i,1);
+
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(list)
+  );
+
+  addNotification(
+    "Item removed from wishlist!"
+  );
+
+  openWishlistModal();
+
+  loadWishlist();
+}
+
+</script>
+
+</body>
+</html>

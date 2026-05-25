@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Products</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+    /* ===== MODAL ADD (SAFE) ===== */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.6);
+      z-index:999;
+    }
+
+    .modal-content{
+      background:#fff;
+      width:90%;
+      max-width:500px;
+      margin:50px auto;
+      padding:20px;
+      border-radius:10px;
+      text-align:center;
+      position:relative;
+    }
+
+    .modal-img{
+      width:100%;
+      max-height:400px;
+      object-fit:contain; /* full image */
+      border-radius:10px;
+    }
+
+    .close-btn{
+      position:absolute;
+      top:10px;
+      right:15px;
+      cursor:pointer;
+      font-size:20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <span class="menu-btn" onclick="toggleMenu()">☰</span>
+  <h2>R&amp;K Decors</h2>
+  <span onclick="toggleCart()" class="close-btn">🛒</span>
+  <div class="gtranslate_wrapper"></div>
+</header>
+
+
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+
+
+
+
+<div id="mobileMenu" class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="profile.html"> My Profile</a>
+  <a href="orders.html">My Bookings</a>
+  <a href="demo.html">Sample Projects</a>
+  <a onclick="toggleDark()">🌗 Mode</a>
+  <a onclick="logout()">Logout</a>
+</div>
+
+<div class="search-box">
+  <input id="search" placeholder="Search..." onkeyup="searchProducts()">
+</div>
+
+<div class="filter-box">
+  <select id="filter" onchange="filterProducts()">
+    <option value="all">All</option>
+    <option value="wedding">Wedding</option>
+    <option value="puja">Puja</option>
+<option value="haldi">Haldi</option>
+<option value="mehendi">Mehendi</option>
+<option value="engagement">Engagement</option>
+<option value="birthday">Birthday</option>
+<option value="babyshower">Baby Shower</option>
+<option value="anniversary">Anniversary</option>
+<option value="floral">Floral</option>
+<option value="event">Event</option>
+    <option value="meeting">Meeting</option>
+  </select>
+</div>
+
+<div id="products"></div>
+
+<!-- 🛒 CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+  <a href="cart.html">
+    <button class="btn">View Full Booking</button>
+  </a>
+
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <span onclick="toggleCart()" class="close-btn">✖</span>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="cart-footer">
+    <h4 id="cartTotal">Total: ₹0</h4>
+    <button class="btn" onclick="goToCheckout()">Checkout</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="index.html">🏠</a>
+  <a href="products.html">🛍️</a>
+  <a href="cart.html">🛒</a>
+  <a href="profile.html">👤</a>
+</div>
+
+<!-- ✅ SINGLE MODAL (FIXED POSITION) -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close-btn" onclick="closeModal()">❌</span>
+
+    <img id="modalImg" class="modal-img">
+
+    <h2 id="modalName"></h2>
+    <p id="modalPrice"></p>
+    <p id="modalDesc"></p>
+
+    <button class="btn" onclick="modalAddToCart()">Add to Book</button>
+
+  </div>
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+<script src="script.js"></script>
+
+
+<!-- ===== FOOTER ===== -->
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <!-- Links -->
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Services</a></li>
+          <li><a href="demo.html">Projects</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+
+        <div class="social-icons">
+          <a href="https://www.facebook.com/share/1H5gbsa9zv/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/vibrate_1001?igsh=MWZvb2txa3NndHRyaQ==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/rup-debnath-15224a331?utm_source=share_via&utm_content=profile&utm_medium=member_android" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/RupDebnath" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com/KamalDebna69959" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-contact">
+        <h3>Contact</h3>
+
+        <p><i class="fa-solid fa-location-dot"></i> Gazole,Malda,West Bengal, India</p>
+
+        <p><i class="fa-solid fa-phone"></i> +91 9933469542 / +91 9932467045</p>
+
+        <p><i class="fa-solid fa-envelope"></i> kamaldebnath415@gmail.com</p>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="footer-bottom">
+      <p>© 2026 YourBrand | All Rights Reserved</p>
+    </div>
+  </footer>
+
+
+
+
+</body>
+</html>

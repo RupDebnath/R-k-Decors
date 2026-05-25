@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .cart-header {
+      text-align: center;
+    }
+    .cart-items {
+      padding: 20px;
+    }
+    .cart-total {
+      text-align: center;
+    }
+    .cart-actions {
+      text-align: center;
+    }
+    .cart-empty {
+      text-align: center;
+    }
+    .cart-card {
+      margin-bottom: 15px;
+    }
+    .cart-img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>Your Cart</h2>
+  <div class="gtranslate_wrapper"></div>
+</header>
+
+
+
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+
+
+
+
+<div id="cartPageItems" ></div>
+
+<h3 id="cartPageTotal">Total: ₹0</h3>
+
+  <div class="checkout-box">
+   <a href="checkout.html">
+      <button type="button" class="btn">
+         Proceed to Checkout
+      </button>
+   </a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<script src="script.js"></script>
+
+<script>
+function loadCartPage(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let box = document.getElementById("cartPageItems");
+  let totalBox = document.getElementById("cartPageTotal");
+
+  if(cart.length === 0){
+    box.innerHTML = "<p style='text-align:center;'>Cart is empty</p>";
+    totalBox.innerHTML = "";
+    return;
+  }
+
+  box.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((c,i)=>{
+    let sub = c.price * c.qty;
+    total += sub;
+
+    box.innerHTML += `
+      <div class="card" style="margin-bottom:15px;">
+        <img src="${c.img}" style="width:300px; height:200px; object-fit:cover;"><br>
+
+        <h3>${c.name}</h3>
+        <p>₹${c.price}</p>
+
+        <div class="qty-box">
+          <button onclick="changeQtyPage(${i},-1)">-</button>
+          ${c.qty}
+          <button onclick="changeQtyPage(${i},1)">+</button>
+        </div>
+
+        <p>Subtotal: ₹${sub}</p>
+
+        <button onclick="removeItemPage(${i})">Remove</button>
+      </div>
+    `;
+  });
+
+  totalBox.innerHTML = "Total: ₹" + total;
+}
+
+// 🔄 SYNC FUNCTIONS
+function changeQtyPage(i,val){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart[i].qty += val;
+  if(cart[i].qty <= 0){
+    cart.splice(i,1);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  loadCartPage();
+
+  // 🔥 sync sidebar
+  if(typeof loadCart === "function") loadCart();
+}
+
+function removeItemPage(i){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.splice(i,1);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  loadCartPage();
+
+  // 🔥 sync sidebar
+  if(typeof loadCart === "function") loadCart();
+}
+
+// 🔄 AUTO SYNC WHEN STORAGE CHANGES
+window.addEventListener("storage", ()=>{
+  loadCartPage();
+});
+
+loadCartPage();
+</script>
+
+
+<!-- ===== FOOTER ===== -->
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <!-- Links -->
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Services</a></li>
+          <li><a href="demo.html">Projects</a></li>
+          <li><a href=".contact-section">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+
+        <div class="social-icons">
+          <a href="https://www.facebook.com/share/1H5gbsa9zv/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/vibrate_1001?igsh=MWZvb2txa3NndHRyaQ==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/rup-debnath-15224a331?utm_source=share_via&utm_content=profile&utm_medium=member_android" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/RupDebnath" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com/KamalDebna69959" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-contact">
+        <h3>Contact</h3>
+
+        <p><i class="fa-solid fa-location-dot"></i> Gazole,Malda,West Bengal, India</p>
+
+        <p><i class="fa-solid fa-phone"></i> +91 9933469542 / +91 9932467045</p>
+
+        <p><i class="fa-solid fa-envelope"></i> kamaldebnath415@gmail.com</p>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="footer-bottom">
+      <p>© 2026 YourBrand | All Rights Reserved</p>
+    </div>
+  </footer>
+
+
+
+</body>
+</html>

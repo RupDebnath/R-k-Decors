@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Seller Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Seller Panel</h1>
+  <div class="gtranslate_wrapper"></div>
+  <a href="products.html">View Products</a>
+  <a href="login.html" onclick="logout()">Logout</a>
+</header>
+
+
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+
+
+
+<div id="forms">
+  <input type="text" id="pname" placeholder="Product Name"><br>
+  <input type="number" id="price" placeholder="Price"><br>
+
+  <select id="ptype">
+    <option value="all">All</option>
+    <option value="wedding">Wedding</option>
+    <option value="puja">Puja</option>
+<option value="haldi">Haldi</option>
+<option value="mehendi">Mehendi</option>
+<option value="engagement">Engagement</option>
+<option value="birthday">Birthday</option>
+<option value="babyshower">Baby Shower</option>
+<option value="anniversary">Anniversary</option>
+<option value="floral">Floral</option>
+<option value="event">Event</option>
+    <option value="meeting">Meeting</option>
+  </select><br>
+
+  <input id="img" placeholder="Image URL"><br>
+
+  <button id="addProductBtn" onclick="addProduct()">Add Product</button>
+</div>
+
+<script src="translator.js"></script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="seller.js"></script>
+</body>
+</html>
